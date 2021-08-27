@@ -3,6 +3,10 @@ import numpy as np
 #Formula for calculating output layers size: (W−F+2P)/S+1
 #Formula for calculating same size padding for stride = 1: P=(F−1)/2
 
+def add_bias(matrix, b):
+    return matrix + b
+    
+
 def compute_padding_layers_same_padding(filter_size):
     p = (filter_size - 1) / 2
 
