@@ -17,7 +17,7 @@ def calculate_output_size(w, f, p, s):
     p = padding layers 
     s = stride
     """
-    return (w - f + 2*p) / (s + 1)
+    return int(((w - f + 2*p) / s) + 1)
 
 def apply_same_padding(image, p):
     #Assuming a stride of 1, calculating number of padding layers:
@@ -44,19 +44,20 @@ def convolve(image, filter, stride=1, same_padding=True):
                         output_layer[r, c] = np.sum(filter * image[r:(f_size + r), c:f_size + c])
     return output_layer
     
-def max_pooling(feature_matrix):
+def max_pooling(feature_matrix, filter_size=2, stride =2):
     """
     Max-pooling with 2x2 matrix and a stride of 2.
     """
     nums_r = feature_matrix.shape[0]
     nums_c = feature_matrix.shape[1]
-    output = np.zeros((nums_r // 2, nums_c // 2), dtype=float)
+    out_dim = calculate_output_size(feature_matrix.shape[0], filter_size, 0, stride)
+    output = np.zeros((out_dim, out_dim), dtype=float)
     output_r = 0
     output_c = 0
-    for r in range(0, nums_r, 2):
-        for c in range(0, nums_c, 2):
-            output[output_r, output_c] = np.amax(feature_matrix[r:r + 2, c:c + 2])
-            if output_c >= 74:
+    for r in range(0, nums_r, stride):
+        for c in range(0, nums_c, stride):
+            output[output_r, output_c] = np.amax(feature_matrix[r:r + filter_size, c:c + filter_size])
+            if output_c >= out_dim - 1:
                 output_c = 0
             else:
                 output_c += 1
