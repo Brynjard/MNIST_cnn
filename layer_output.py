@@ -1,5 +1,5 @@
 import numpy as np
-from network_layer import Layer
+from layer_interface import Layer
 
 class OutputLayer():
     def __init__(self, pred, targets):

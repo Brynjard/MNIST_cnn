@@ -1,6 +1,8 @@
 from layer_fully_connected import FullyConnectedLayer
 from layer_output import OutputLayer
+from layer_max_pooling import PoolingLayer
 from keras.datasets import mnist
+from layer_convolution import ConvolutionalLayer
 import numpy as np
 import cnn_helpers as helpers
 import activation_functions as act
@@ -12,21 +14,21 @@ bias = 0
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
 train_y_one_hot_encoded = utils.one_hot_encode(train_y)
 img = train_X[0]
-#Create filter:
-filter = helpers.init_filter(5)
-#convolve: 
-convolved = helpers.convolve(train_X[0], filter)
-#add bias: 
-convolved = helpers.add_bias(convolved, bias)
-#non-linearity:
-non_lin = act.relu(convolved)
-#pooling:
-pooled_img = helpers.max_pooling(non_lin)
-pooled_img = act.relu(pooled_img)
-#Seems ok this far..
-pooled_flattened = np.ndarray.flatten(pooled_img)
 
-fc_layer = FullyConnectedLayer(pooled_flattened, helpers.init_weights(len(pooled_flattened), 10), np.zeros(10))
+#Convolutional layer:
+conv_layer = ConvolutionalLayer(train_X[0], act.relu)
+conv_layer.init_filter(5)
+conv_layer.convolve()
+convoluted_img = conv_layer.apply_activation_function()
+#pooling:
+pool_layer = PoolingLayer(convoluted_img, act.relu)
+pool_layer.pool_layer()
+pool_layer.apply_activation()
+pooled_flattened = np.ndarray.flatten(pool_layer.y)
+
+fc_layer = FullyConnectedLayer(pooled_flattened)
+fc_layer.init_bias(10)
+fc_layer.init_weights(10)
 fc_layer.forward()
 fc_layer.apply_activation(act.softmax)
 

@@ -1,14 +1,20 @@
-from network_layer import Layer
-
+from layer_interface import Layer
+import cnn_helpers as helpers
 import numpy as np
 #Denotes input vector  = x, acctivations as = y, and output as y
 class FullyConnectedLayer(Layer):
-    def __init__(self, x, w, bias):
+    def __init__(self, x):
         self.x = x
         self.a = None
-        self.w = w
+        self.w = None
         self.y = None
-        self.bias = bias
+        self.bias = None
+
+    def init_bias(self, next_layer_size):
+        self.bias = np.zeros(next_layer_size)
+
+    def init_weights(self, next_layer_size):
+        self.w = helpers.init_weights(len(self.x), next_layer_size)
 
     def forward(self):
         #Bias gets added to every neuron:
