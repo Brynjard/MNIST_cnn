@@ -13,7 +13,6 @@ class FullyConnectedLayer(Layer):
     def forward(self):
         #Bias gets added to every neuron:
         self.a = np.dot(self.x, self.w) + self.bias
-        print("Shape of a: {}".format(self.a.shape))
         return self.a
 
     def apply_activation(self, activation_function):

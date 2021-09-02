@@ -34,10 +34,16 @@ def init_filter(filter_size):
     return np.random.normal(size=(filter_size, filter_size))
 
 def init_weights(dim_0, dim1):
-    return np.random.normal(size=(dim_0, dim1))
+    #w = np.random.normal(size=(dim_0, dim1))
+    #return w
+    np.random.seed(0)
+    scale = 1/max(1., (2+2)/2.)
+    limit = np.sqrt(3.0 * scale)
+    weights = np.random.uniform(-limit, limit, size=(dim_0,dim1))
+    return weights
 
 def init_bias(dim0, dim1):
-    return np.ones((1, dim1))
+    return np.zeros((1, dim1))
 
 def convolve(image, filter, stride=1, same_padding=True):
     #Computing number of padding layers:

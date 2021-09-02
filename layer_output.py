@@ -6,6 +6,9 @@ class OutputLayer():
         self.error = None
         self.pred = pred
         self.targets = targets
+
+    def calc_error(self, error_func):
+        self.error = error_func(self.pred, self.targets)
     
     
 
