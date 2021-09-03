@@ -12,3 +12,7 @@ def cross_entropy(predictions, targets, epsilon=1e-12):
     ce = -np.sum(targets*np.log(predictions+1e-9))/N
     return ce
 
+def cross_entropy_derivative(predictions, labels):
+       #preds - truth?
+       return predictions - labels
+
