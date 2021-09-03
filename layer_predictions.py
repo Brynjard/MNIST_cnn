@@ -6,15 +6,20 @@ class Predictions():
         self.pred = pred
         self.targets = targets
         self.gradient_o = None
+        self.label = helpers.reverse_one_hot_encoding(self.targets)
 
     def calc_error(self, error_func):
-        self.error = error_func(self.pred, self.targets)
+        l = - np.log(self.pred[self.label])
+        self.error = l
+        return self.error
 
     def backwards(self):
         #Calculate the dL / dout_s (softmax output) - this is the input for the softmax backwards function
-        label = helpers.reverse_one_hot_encoding(self.targets)
         gradient = np.zeros(10)
-        self.gradient_o = gradient[label] = -1 / self.pred[label]
+        gradient[self.label] = -1 / self.pred[self.label]
+        self.gradient_o = gradient
+        print("TARGETS: {}".format(self.targets))
+        print("GRADIENT_O: {}".format(self.gradient_o))
         return self.gradient_o
     
 

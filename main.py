@@ -33,18 +33,11 @@ max_pool.forward()
 relu = Relu(max_pool.y)
 relu.forward()
 
-fc_layer = FullyConnectedLayer(relu.y)
-fc_layer.init_bias(10)
-fc_layer.init_weights(10)
-fc_layer.forward()
-softmax = SoftMax(fc_layer.y)
-softmax.forward()
-print("Preds after softmax: {}".format(softmax.y))
+softmax = SoftMax(relu.y.size, 10)
+softmax.forward(relu.y)
 predicts = Predictions(softmax.y, train_y_one_hot_encoded[0])
 predicts.calc_error(ef.cross_entropy)
-print("ERROR: {}".format(predicts.error))
 predicts.backwards()
-
 
 
 
