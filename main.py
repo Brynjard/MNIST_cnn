@@ -37,7 +37,9 @@ softmax = SoftMax(relu.y.size, 10)
 softmax.forward(relu.y)
 predicts = Predictions(softmax.y, train_y_one_hot_encoded[0])
 predicts.calc_error(ef.cross_entropy)
-predicts.backwards()
+d_L_d_out_s = predicts.backwards()
+d_L_d_out = softmax.backwards(d_L_d_out_s, 0.00001)
+max_pool.backwards(d_L_d_out)
 
 
 

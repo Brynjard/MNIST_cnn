@@ -1,22 +1,24 @@
 import numpy as np
 import cnn_helpers as helpers
 import activation_functions as af
-
+import numpy as np
 class MaxPoolingLayer():
-    def __init__(self, x):
-        self.x = x
+    def __init__(self, input, filter_size = 2, stride = 2):
+        self.input = input
         self.y = None
+        self.filter_size = filter_size
+        self.stride = stride
     
-    def forward(self, filter_size=2, stride =2):
-        nums_r = self.x.shape[0]
-        nums_c = self.x.shape[1]
-        out_dim = helpers.calculate_output_size(self.x.shape[0], filter_size, 0, stride)
+    def forward(self):
+        nums_r = self.input.shape[0]
+        nums_c = self.input.shape[1]
+        out_dim = helpers.calculate_output_size(self.input.shape[0], self.filter_size, 0, self.stride)
         output = np.zeros((out_dim, out_dim), dtype=float)
         output_r = 0
         output_c = 0
-        for r in range(0, nums_r, stride):
-            for c in range(0, nums_c, stride):
-                output[output_r, output_c] = np.amax(self.x[r:r + filter_size, c:c + filter_size])
+        for r in range(0, nums_r, self.stride):
+            for c in range(0, nums_c, self.stride):
+                output[output_r, output_c] = np.amax(self.input[r:r + self.filter_size, c:c + self.filter_size])
                 if output_c >= out_dim - 1:
                     output_c = 0
                 else:
@@ -25,5 +27,15 @@ class MaxPoolingLayer():
         self.y = output
         return self.y
     
-    def backwards(self):
-        raise NotImplementedError
+    def backwards(self, d_L_d_out):
+        #d_L_d_out is the loss gradient for this layers output
+        d_L_d_input = np.zeros((self.input.shape))
+
+        for r in range(self.input.shape[0]):
+            for c in range(self.input.shape[1]):
+                reg = self.input[r * 2: r * 2 + 2, c * 2: c * 2 + 2]
+                reg_max = np.amax(reg)
+                if self.input[r, c] == reg_max:
+                    d_L_d_input[r, c] = reg_max
+        return d_L_d_input
+
