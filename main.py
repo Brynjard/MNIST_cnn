@@ -30,7 +30,7 @@ relu.forward()
 #pooling:
 max_pool = MaxPoolingLayer(relu.y)
 max_pool.forward()
-relu = Relu(max_pool.y)
+relu = Relu(max_pool.output)
 relu.forward()
 
 softmax = SoftMax(relu.y.size, 10)

@@ -5,9 +5,10 @@ import numpy as np
 class MaxPoolingLayer():
     def __init__(self, input, filter_size = 2, stride = 2):
         self.input = input
-        self.y = None
+        self.output = None
         self.filter_size = filter_size
         self.stride = stride
+        self.d_L_d_input = None
     
     def forward(self):
         nums_r = self.input.shape[0]
@@ -24,18 +25,37 @@ class MaxPoolingLayer():
                 else:
                     output_c += 1
             output_r += 1
-        self.y = output
-        return self.y
+        self.output = output
+        return self.output
     
     def backwards(self, d_L_d_out):
+        print("Input to maxpooling backprop: {}".format(d_L_d_out.shape))
         #d_L_d_out is the loss gradient for this layers output
-        d_L_d_input = np.zeros((self.input.shape))
+        d_L_d_input = np.zeros((self.output.shape))
+        out_dim = d_L_d_input.shape[0]
+        nums_r = self.input.shape[0]
+        nums_c = self.input.shape[1]
+        output_r = 0
+        output_c = 0
+        for r in range(0, nums_r, self.stride):
+            for c in range(0, nums_c, self.stride):
+                curr_region_max = np.amax(self.input[r:r + self.filter_size, c:c + self.filter_size])
+                if self.output[output_r, output_c] == curr_region_max:
+                    d_L_d_input[output_r, output_c] = d_L_d_out[output_r, output_c]
+                if output_c >= out_dim - 1:
+                    output_c = 0
+                else:
+                    output_c += 1
+            output_r += 1
+        self.d_L_d_input = d_L_d_input
+        #self.print_desc()
+        return self.d_L_d_input
+    
+    def print_desc(self):
+        print("***** MAXPOOLING LAYER START *****")
+        print("Output: {}".format(self.output))
+        print("d_L_d_input: {}".format(self.d_L_d_input))
+        print("***** MAXPOOLING LAYER END *****")
 
-        for r in range(self.input.shape[0]):
-            for c in range(self.input.shape[1]):
-                reg = self.input[r * 2: r * 2 + 2, c * 2: c * 2 + 2]
-                reg_max = np.amax(reg)
-                if self.input[r, c] == reg_max:
-                    d_L_d_input[r, c] = reg_max
-        return d_L_d_input
+        
 
