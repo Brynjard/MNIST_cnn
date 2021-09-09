@@ -25,6 +25,7 @@ img = train_X[0]
 conv = ConvolutionalLayer(train_X[0])
 conv.init_filter(5)
 conv.forwards()
+#relu:
 relu = Relu(conv.y)
 relu.forward()
 #pooling:
@@ -40,6 +41,7 @@ predicts.calc_error(ef.cross_entropy)
 d_L_d_out_s = predicts.backwards()
 d_L_d_out = softmax.backwards(d_L_d_out_s, 0.00001)
 max_pool.backwards(d_L_d_out)
+conv.backwards(max_pool.d_L_d_input, 0.00001)
 
 
 

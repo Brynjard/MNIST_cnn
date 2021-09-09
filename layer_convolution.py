@@ -15,6 +15,14 @@ class ConvolutionalLayer():
         self.y = helpers.convolve(self.x, self.filter)
         return self.y
 
-    def backwards(self):
-        raise NotImplementedError
+    def backwards(self, d_L_d_out, learn_rate):
+        d_L_d_filters = np.zeros(self.filter.shape)
+        print("d_L_d_out shape: {}".format(d_L_d_out.shape))
+        for r in range(0, self.input.shape[0], self.filter.shape[0]):
+            for c in range(0, self.input.shape[1], self.filter.shape[0]):
+                
+
+
+
+        
 
