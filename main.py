@@ -29,19 +29,20 @@ conv.forwards()
 relu = Relu(conv.y)
 relu.forward()
 #pooling:
-max_pool = MaxPoolingLayer(relu.y)
+max_pool = MaxPoolingLayer(relu.output)
 max_pool.forward()
 relu = Relu(max_pool.output)
 relu.forward()
 
-softmax = SoftMax(relu.y.size, 10)
-softmax.forward(relu.y)
+softmax = SoftMax(relu.output.size, 10)
+softmax.forward(relu.output)
 predicts = Predictions(softmax.y, train_y_one_hot_encoded[0])
 predicts.calc_error(ef.cross_entropy)
 d_L_d_out_s = predicts.backwards()
 d_L_d_out = softmax.backwards(d_L_d_out_s, 0.00001)
 max_pool.backwards(d_L_d_out)
-conv.backwards(max_pool.d_L_d_input, 0.00001)
+relu.backwards(max_pool.d_L_d_input)
+conv.backwards(relu.d_L_d_input, 0.00001)
 
 
 

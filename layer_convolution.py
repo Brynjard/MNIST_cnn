@@ -17,10 +17,16 @@ class ConvolutionalLayer():
 
     def backwards(self, d_L_d_out, learn_rate):
         d_L_d_filters = np.zeros(self.filter.shape)
-        print("d_L_d_out shape: {}".format(d_L_d_out.shape))
-        for r in range(0, self.input.shape[0], self.filter.shape[0]):
-            for c in range(0, self.input.shape[1], self.filter.shape[0]):
-                
+        d_L_d_input = np.zeros(self.x.shape)
+        f_size = self.filter.shape[0]
+        for r in range(self.x.shape[0] - 4):
+            for c in range(self.x.shape[1]- 4):
+                region = self.x[r:(f_size + r), c: (c + f_size)]
+                d_L_d_filters += d_L_d_out[r, c] * region
+                d_L_d_input[r:(f_size + r), c: (c + f_size)] += self.filter * d_L_d_out[r, c]
+        self.filter -= learn_rate * d_L_d_filters
+        self.d_L_d_filters = d_L_d_filters
+        return self.d_L_d_filters
 
 
 
