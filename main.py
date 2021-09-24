@@ -26,7 +26,7 @@ test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 img = train_X[0]
 #init layers:
 
-conv = ConvolutionalLayer(0.1)
+conv = ConvolutionalLayer(0.001)
 conv.init_filter(5)
 
 relu_conv = Relu()
