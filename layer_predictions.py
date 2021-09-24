@@ -11,7 +11,8 @@ class Predictions():
         self.label = helpers.reverse_one_hot_encoding(self.out_s)
         self.calc_error()
         accuracy = 1 if np.argmax(self.pred) == self.label else 0
-
+        print("Current guess: {}".format(np.argmax(self.pred)))
+        print("current label: {}".format(self.label))
         return accuracy, self.error
 
     def calc_error(self):
@@ -24,7 +25,7 @@ class Predictions():
         gradient = np.zeros(10)
         gradient[self.label] = -1 / self.pred[self.label]
         self.d_L_d_out = gradient
-        self.print_desc()
+        #self.print_desc()
         return self.d_L_d_out
     
     def print_desc(self):

@@ -5,7 +5,7 @@ class SoftMax():
     #This works as a fully connected layer with softmax. 
     def __init__(self, input_len, nodes, learning_rate):
         #We divide input by input_len to reduce the variance of our initial values /(normalizing?)
-        self.weights = np.random.randn(input_len, nodes) / input_len 
+        self.weights = np.random.randn(input_len, nodes) / input_len
         self.b = np.zeros(nodes)
         self.output = None
         self.gradient_o = None
@@ -52,9 +52,15 @@ class SoftMax():
             d_L_d_inputs = d_t_d_inputs @ d_L_d_t
 
             #self.print_desc(d_L_d_out, d_out_d_t, self.last_input, d_t_d_b, d_t_d_inputs, d_t_d_w, d_L_d_t, d_L_d_inputs)
-
+            print("softmax weights shape: {}".format(self.weights.shape))
             self.weights -= self.learning_rate * d_L_d_w
             self.b -= self.learning_rate * d_L_d_b
+            print("SOFTMAXLAYER")
+            ch = self.learning_rate * d_L_d_w
+            mindex = np.unravel_index(ch.argmax(), ch.shape)
+            print(ch[mindex[0], mindex[1]])
+            print("weights: {}".format(self.learning_rate * d_L_d_w))
+            print("bias: {}".format(self.learning_rate * d_L_d_b))
             return d_L_d_inputs.reshape(self.last_input_shape)
 
 

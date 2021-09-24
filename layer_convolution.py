@@ -26,6 +26,8 @@ class ConvolutionalLayer():
                 region = self.input[r:(f_size + r), c: (c + f_size)]
                 d_L_d_filters += d_L_d_out[r, c] * region
                 d_L_d_input[r:(f_size + r), c: (c + f_size)] += self.filter * d_L_d_out[r, c]
+        print("CONV LAYER")
+        print("Weigts: {}".format(self.learning_rate * d_L_d_filters))
         self.filter -= self.learning_rate * d_L_d_filters
         self.d_L_d_filters = d_L_d_filters
         return self.d_L_d_filters

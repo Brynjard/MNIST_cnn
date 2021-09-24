@@ -26,7 +26,7 @@ test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 img = train_X[0]
 #init layers:
 
-conv = ConvolutionalLayer(0.00001)
+conv = ConvolutionalLayer(0.1)
 conv.init_filter(5)
 
 relu_conv = Relu()
@@ -35,7 +35,7 @@ max_pool = MaxPoolingLayer()
 
 relu_pooling = Relu()
 
-softmax = SoftMax(196, 10, 0.00001) #earlier: SoftMax(relu_pooling.output.size, 10)
+softmax = SoftMax(196, 10, 0.001) #earlier: SoftMax(relu_pooling.output.size, 10)
 
 predicts = Predictions()
 #Order layers for model:
@@ -49,7 +49,9 @@ kwargs["prediction"] = predicts
 
 model_cnn = Model(kwargs)
 
-model_cnn.fit(train_X[0:500], train_y_one_hot_encoded[0:500])
+#model_cnn.fit(train_X[0:10], train_y_one_hot_encoded[0:10])
+model_cnn.forward(train_X[0], train_y_one_hot_encoded[0])
+model_cnn.backward()
 #model_cnn.test(test_X[0:1000], test_y[0:1000])
 
 
