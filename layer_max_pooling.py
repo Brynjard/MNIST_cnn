@@ -3,14 +3,16 @@ import cnn_helpers as helpers
 import activation_functions as af
 import numpy as np
 class MaxPoolingLayer():
-    def __init__(self, input, filter_size = 2, stride = 2):
-        self.input = input
+    def __init__(self, filter_size = 2, stride = 2):
+        self.input = None
         self.output = None
         self.filter_size = filter_size
         self.stride = stride
         self.d_L_d_input = None
     
-    def forward(self):
+    def forward(self, input):
+        self.input = input
+
         nums_r = self.input.shape[0]
         nums_c = self.input.shape[1]
         out_dim = helpers.calculate_output_size(self.input.shape[0], self.filter_size, 0, self.stride)
@@ -28,7 +30,7 @@ class MaxPoolingLayer():
         self.output = output
         return self.output
     
-    def backwards(self, d_L_d_out):
+    def backward(self, d_L_d_out):
         #d_L_d_out is the loss gradient for this layers output
         d_L_d_input = np.zeros((self.input.shape))
         out_dim = d_L_d_out.shape[0]

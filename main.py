@@ -5,44 +5,53 @@ from layer_softmax import SoftMax
 from layer_relu import Relu
 from keras.datasets import mnist
 from layer_convolution import ConvolutionalLayer
+from model_cnn import Model
 import numpy as np
 import cnn_helpers as helpers
 import activation_functions as act
 import utils
 import error_functions as ef
 from PIL import Image
+from collections import OrderedDict
 """
 During the backward phase, each layer will receive a gradient and also return a gradient. It will receive the gradient of loss with respect to its outputs (∂L / ∂out) and return the gradient of loss with respect to its inputs (∂L / ∂in).
 """
 #28x28 pixel imgs
 bias = 0
+#Test is 10k long, train is 60k long.
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
 train_y_one_hot_encoded = utils.one_hot_encode(train_y)
+test_y_one_hot_encoded = utils.one_hot_encode(test_y)
+
 img = train_X[0]
+#init layers:
 
-
-#Convolutional layer:
-conv = ConvolutionalLayer(train_X[0])
+conv = ConvolutionalLayer(0.00001)
 conv.init_filter(5)
-conv.forwards()
-#relu:
-relu = Relu(conv.y)
-relu.forward()
-#pooling:
-max_pool = MaxPoolingLayer(relu.output)
-max_pool.forward()
-relu = Relu(max_pool.output)
-relu.forward()
 
-softmax = SoftMax(relu.output.size, 10)
-softmax.forward(relu.output)
-predicts = Predictions(softmax.y, train_y_one_hot_encoded[0])
-predicts.calc_error(ef.cross_entropy)
-d_L_d_out_s = predicts.backwards()
-d_L_d_out = softmax.backwards(d_L_d_out_s, 0.00001)
-max_pool.backwards(d_L_d_out)
-relu.backwards(max_pool.d_L_d_input)
-conv.backwards(relu.d_L_d_input, 0.00001)
+relu_conv = Relu()
+
+max_pool = MaxPoolingLayer()
+
+relu_pooling = Relu()
+
+softmax = SoftMax(196, 10, 0.00001) #earlier: SoftMax(relu_pooling.output.size, 10)
+
+predicts = Predictions()
+#Order layers for model:
+kwargs = OrderedDict()
+kwargs["conv"] = conv
+kwargs["relu_conv"] = relu_conv
+kwargs["max_pool"] = max_pool
+kwargs["relu_pooling"] = relu_pooling
+kwargs["softmax"] = softmax
+kwargs["prediction"] = predicts
+
+model_cnn = Model(kwargs)
+
+model_cnn.fit(train_X[0:500], train_y_one_hot_encoded[0:500])
+#model_cnn.test(test_X[0:1000], test_y[0:1000])
+
 
 
 
