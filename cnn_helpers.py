@@ -31,7 +31,7 @@ def apply_same_padding(image, p):
 
 def init_filter(filter_size):
     #init filter to be random numbers within normal distribution
-    return np.random.normal(size=(filter_size, filter_size))
+    return np.random.randn(filter_size, filter_size) / (filter_size * filter_size)
 
 def init_weights(dim_0, dim1):
     #w = np.random.normal(size=(dim_0, dim1))

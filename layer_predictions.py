@@ -24,14 +24,14 @@ class Predictions():
         gradient = np.zeros(10)
         gradient[self.label] = -1 / self.pred[self.label]
         self.d_L_d_out = gradient
-        #self.print_desc()
+        self.print_desc()
         return self.d_L_d_out
     
     def print_desc(self):
         print("***** PREDICTION LAYER START ******")
         print("Output of model: {}".format(self.pred))
-        print("Argmax of output: {}".format(np.argmax(self.pred)))
         print("target output: {}".format(self.out_s))
+        print("Argmax of output: {}".format(np.argmax(self.pred)))
         print("Error: {}".format(self.error))
         #print("d_L/d_out_s: {}".format(self.d_L_d_out_s))
         #print("***** PREDICTION LAYER END ******")

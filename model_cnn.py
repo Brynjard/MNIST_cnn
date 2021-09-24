@@ -24,8 +24,6 @@ class Model(object):
         for epoch in range(num_epochs):
             for i, (im, label) in enumerate(zip(train_X, train_y)):
                 accuracy, error = self.forward(im, label)
-                if i % 5 == 0:
-                    print("Error: {}".format(error))
                 self.backward()
     
     def test(self, test_X, test_y):
