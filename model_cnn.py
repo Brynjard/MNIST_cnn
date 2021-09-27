@@ -21,12 +21,17 @@ class Model(object):
             gradient = self.layers[layer_key].backward(gradient)
 
     def fit(self, train_X, train_y, num_epochs=1):
-        accuracy_counter = 0
-        iterations = []
-        accuracies = []
-        costs = []
         print("TRAINING MODEL")
         for epoch in range(num_epochs):
+            #Shuffle training data: 
+            permutation = np.random.permutation(len(train_X))
+            train_X = train_X[permutation]
+            train_y = train_y[permutation]
+            accuracy_counter = 0
+            iterations = []
+            accuracies = []
+            costs = []
+
             for i, (im, label) in enumerate(zip(train_X, train_y)):
                 accuracy, error = self.forward(im, label)
                 accuracy_counter += accuracy
@@ -48,13 +53,14 @@ class Model(object):
         print("TESTING MODEL")
         total_accuracy = 0
         total_loss = 0
+        i = 0
         for im, label in zip(test_X, test_y):
             accuracy, error = self.forward(im, label)
             total_accuracy += accuracy
             total_loss += error
+            i += 1
         print("*******************")
-        print("Accuracy of model: {}".format(total_accuracy / len(test_X)))
-        print("Avg. Loss: {}".format(total_loss / len(test_X)))
+        print("Accuracy of model: {}".format(total_accuracy / i))
         print("*******************")
 
 
