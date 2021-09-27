@@ -8,3 +8,7 @@ https://towardsdatascience.com/training-a-convolutional-neural-network-from-scra
 ### Notes:
 - Using relu instead of leaky relu 
 - calculating backprop for d_L with respects to input in convolutional layer: not 100% this is correct.
+
+
+## Commit: ca22039:
+- First working version, basic architecture of conv -> relu -> maxpool -> relu -> softmax -> prediction

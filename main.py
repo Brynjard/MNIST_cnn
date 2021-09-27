@@ -55,7 +55,7 @@ model_cnn = Model(kwargs)
 
 iterations, accuracies, costs = model_cnn.fit(train_X[0:3000], train_y_one_hot_encoded[0:3000])
 
-plt.plot(iterations, costs)
+plt.plot(iterations, accuracies)
 plt.xlabel("time")
 plt.ylabel("accuracy")
 plt.show()
