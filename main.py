@@ -49,10 +49,10 @@ kwargs["prediction"] = predicts
 
 model_cnn = Model(kwargs)
 
-#model_cnn.fit(train_X[0:10], train_y_one_hot_encoded[0:10])
-model_cnn.forward(train_X[0], train_y_one_hot_encoded[0])
-model_cnn.backward()
-#model_cnn.test(test_X[0:1000], test_y[0:1000])
+model_cnn.fit(train_X[0:3000], train_y_one_hot_encoded[0:3000])
+#model_cnn.forward(train_X[0], train_y_one_hot_encoded[0])
+#model_cnn.backward()
+model_cnn.test(test_X[0:1000], test_y[0:1000])
 
 
 

@@ -9,10 +9,8 @@ class Model(object):
             target: 10-size vector with one-hot-encoded target.
         """        
         output = self.layers[self.layer_keys[0]].forward(image) #convolutional layer
-        print("Output from conv-layer: {}".format(output))
         for i in range(1, len(self.layer_keys) - 1):
             output = self.layers[self.layer_keys[i]].forward(output)
-            print("Output from {} layer: {}".format(self.layer_keys[i], output))
         #Prediction layer:
         accuracy, error = self.layers[self.layer_keys[-1]].forward(output, target)
         print("Accuracy: {}".format(accuracy))

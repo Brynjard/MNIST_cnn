@@ -101,7 +101,7 @@ def avg_pooling(feature_matrix):
 
 def reverse_one_hot_encoding(one_hot_encoded):
     "Reverses one-hot-encoded label to integer."
-    return np.where(one_hot_encoded == 1)[0]
+    return np.where(one_hot_encoded == 1)[0][0]
 
 
 

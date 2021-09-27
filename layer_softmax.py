@@ -52,15 +52,8 @@ class SoftMax():
             d_L_d_inputs = d_t_d_inputs @ d_L_d_t
 
             #self.print_desc(d_L_d_out, d_out_d_t, self.last_input, d_t_d_b, d_t_d_inputs, d_t_d_w, d_L_d_t, d_L_d_inputs)
-            print("softmax weights shape: {}".format(self.weights.shape))
             self.weights -= self.learning_rate * d_L_d_w
             self.b -= self.learning_rate * d_L_d_b
-            print("SOFTMAXLAYER")
-            ch = self.learning_rate * d_L_d_w
-            mindex = np.unravel_index(ch.argmax(), ch.shape)
-            print(ch[mindex[0], mindex[1]])
-            print("weights: {}".format(self.learning_rate * d_L_d_w))
-            print("bias: {}".format(self.learning_rate * d_L_d_b))
             return d_L_d_inputs.reshape(self.last_input_shape)
 
 

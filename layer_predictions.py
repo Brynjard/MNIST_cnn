@@ -11,8 +11,6 @@ class Predictions():
         self.label = helpers.reverse_one_hot_encoding(self.out_s)
         self.calc_error()
         accuracy = 1 if np.argmax(self.pred) == self.label else 0
-        print("Current guess: {}".format(np.argmax(self.pred)))
-        print("current label: {}".format(self.label))
         return accuracy, self.error
 
     def calc_error(self):
