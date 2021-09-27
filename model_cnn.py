@@ -1,3 +1,4 @@
+import numpy as np
 class Model(object):
     def __init__(self, layers):
         self.layers = layers
@@ -13,8 +14,6 @@ class Model(object):
             output = self.layers[self.layer_keys[i]].forward(output)
         #Prediction layer:
         accuracy, error = self.layers[self.layer_keys[-1]].forward(output, target)
-        print("Accuracy: {}".format(accuracy))
-        print("Error: {}".format(error))
         return accuracy, error
     def backward(self):
         gradient = self.layers[self.layer_keys[-1]].backward()
@@ -22,25 +21,28 @@ class Model(object):
             gradient = self.layers[layer_key].backward(gradient)
 
     def fit(self, train_X, train_y, num_epochs=1):
+        accuracy_counter = 0
+        iterations = []
+        accuracies = []
+        costs = []
         print("TRAINING MODEL")
-        total_acc = 0
-        total_loss = 0
-        iterations = 0
         for epoch in range(num_epochs):
             for i, (im, label) in enumerate(zip(train_X, train_y)):
-                iterations += 1
                 accuracy, error = self.forward(im, label)
-                total_acc += accuracy
-                total_loss += error
+                accuracy_counter += accuracy
                 if i % 10 == 0:
-                    print("i: {}".format(i))
-                    print("10 runs gone:")
-                    if total_acc > 0:
-                        print("Current accuracy: {}".format(total_acc / iterations))
+                    if accuracy_counter > 0 and i > 0:
+                        current_accuracy = accuracy_counter / i
+
+                        iterations.append(i)
+                        accuracies.append(current_accuracy)
+                        costs.append(error)
                     else:
-                        print("Current accuracy: {}".format(0))
-                    print("Average loss: {}".format(total_loss / iterations))
+                        current_accuracy = accuracy_counter
+                    print("{} iterations gone. Accuracy: {}".format(i, current_accuracy))
+                    print("Error: {}".format(error))
                 self.backward()
+        return iterations, accuracies, costs
     
     def test(self, test_X, test_y):
         print("TESTING MODEL")

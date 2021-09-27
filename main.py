@@ -13,6 +13,7 @@ import utils
 import error_functions as ef
 from PIL import Image
 from collections import OrderedDict
+import matplotlib.pyplot as plt
 """
 During the backward phase, each layer will receive a gradient and also return a gradient. It will receive the gradient of loss with respect to its outputs (∂L / ∂out) and return the gradient of loss with respect to its inputs (∂L / ∂in).
 """
@@ -20,6 +21,9 @@ During the backward phase, each layer will receive a gradient and also return a 
 bias = 0
 #Test is 10k long, train is 60k long.
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
+#normalize:
+train_X = (train_X / 255) - 0.5
+test_X = (test_X / 255) - 0.5
 train_y_one_hot_encoded = utils.one_hot_encode(train_y)
 test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 
@@ -49,10 +53,15 @@ kwargs["prediction"] = predicts
 
 model_cnn = Model(kwargs)
 
-model_cnn.fit(train_X[0:3000], train_y_one_hot_encoded[0:3000])
+iterations, accuracies, costs = model_cnn.fit(train_X[0:3000], train_y_one_hot_encoded[0:3000])
+
+plt.plot(iterations, costs)
+plt.xlabel("time")
+plt.ylabel("accuracy")
+plt.show()
 #model_cnn.forward(train_X[0], train_y_one_hot_encoded[0])
 #model_cnn.backward()
-model_cnn.test(test_X[0:1000], test_y[0:1000])
+#model_cnn.test(test_X[0:1000], test_y[0:1000])
 
 
 
