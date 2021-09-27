@@ -55,7 +55,7 @@ model_cnn = Model(kwargs)
 #current best: 6450 iterations
 iterations, accuracies, costs = model_cnn.fit(train_X[0:3000], train_y_one_hot_encoded[0:3000], 3)
 
-model_cnn.test(test_X[:6000], test_y_one_hot_encoded[:2000])
+model_cnn.test(test_X[:2000], test_y_one_hot_encoded[:2000])
 plt.plot(iterations, accuracies)
 plt.xlabel("time")
 plt.ylabel("accuracy")
