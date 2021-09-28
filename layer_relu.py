@@ -10,6 +10,7 @@ class Relu():
         self.output = np.where(self.input > 0, self.input, 0)
         return self.output
 
+
     def backward(self, d_L_d_out):
         #Derivative of relu is: if x <= 0 0, else 1
         self.d_L_d_input = np.where(d_L_d_out > 0, 1, 0)

@@ -29,18 +29,18 @@ def apply_same_padding(image, p):
     padded = np.pad(image, [(p, p), (p, p)], mode="constant")
     return padded
 
-def init_filter(filter_size):
+def init_filter(filter_size, num_filters):
     #init filter to be random numbers within normal distribution
-    return np.random.randn(filter_size, filter_size) / (filter_size * filter_size)
+    return np.random.randn(num_filters, filter_size, filter_size) / (filter_size * filter_size)
 
-def init_weights(dim_0, dim1):
+"""def init_weights(dim_0, dim1):
     #w = np.random.normal(size=(dim_0, dim1))
     #return w
     np.random.seed(0)
     scale = 1/max(1., (2+2)/2.)
     limit = np.sqrt(3.0 * scale)
     weights = np.random.uniform(-limit, limit, size=(dim_0,dim1))
-    return weights
+    return weights"""
 
 def init_bias(dim0, dim1):
     return np.zeros((1, dim1))
@@ -50,15 +50,17 @@ def convolve(image, filter, stride=1, same_padding=True):
     p = compute_padding_layers_same_padding(filter.shape[0])
     if same_padding:
     #pad image:
-        output_layer = np.zeros((image.shape))
-        image = apply_same_padding(image, p)
-        f_size = filter.shape[0]
-        for r in range(output_layer.shape[0]):
-            if not (r + f_size > image.shape[1]):
-                for c in range(output_layer.shape[0]):
-                    if not (c + f_size > image.shape[0]):
-                        output_layer[r, c] = np.sum(filter * image[r:(f_size + r), c:f_size + c])
-    return output_layer
+        img_padded = apply_same_padding(image, p)
+        output_layers = np.zeros((image.shape[0], image.shape[1], filter.shape[0]))
+        for f in range(filter.shape[0]): #for all filters:
+            f_size = filter.shape[1]
+            for r in range(output_layers.shape[0]):
+                if not (r + f_size > img_padded.shape[1]):
+                    for c in range(output_layers.shape[0]):
+                        if not (c + f_size > img_padded.shape[0]):
+                            output_layers[r, c, f] = np.sum(filter[f] * img_padded[r:(f_size + r), c:f_size + c])
+        return output_layers
+
     
 def max_pooling(feature_matrix, filter_size=2, stride =2):
     """
