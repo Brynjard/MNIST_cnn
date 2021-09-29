@@ -22,31 +22,33 @@ class Model(object):
 
     def fit(self, train_X, train_y, num_epochs=1):
         print("TRAINING MODEL")
+        total_preds = 0
+        correct_preds = 0
+        iterations = []
+        accuracies = []
+        costs = []
         for epoch in range(num_epochs):
             #Shuffle training data: 
             permutation = np.random.permutation(len(train_X))
             train_X = train_X[permutation]
             train_y = train_y[permutation]
-            accuracy_counter = 0
-            iterations = []
-            accuracies = []
-            costs = []
 
-            for i, (im, label) in enumerate(zip(train_X, train_y)):
+            for im, label in zip(train_X, train_y):
                 accuracy, error = self.forward(im, label)
-                accuracy_counter += accuracy
-                if i % 10 == 0:
-                    if accuracy_counter > 0 and i > 0:
-                        current_accuracy = accuracy_counter / i
+                correct_preds += accuracy
+                if total_preds > 0:
+                    accuracies.append(correct_preds / total_preds)
+                else:
+                    accuracies.append(correct_preds)
+                iterations.append(total_preds)
+                costs.append(error)
 
-                        iterations.append(i)
-                        accuracies.append(current_accuracy)
-                        costs.append(error)
-                    else:
-                        current_accuracy = accuracy_counter
-                    print("{} iterations gone. Accuracy: {}".format(i, current_accuracy))
-                    print("Error: {}".format(error))
+                if total_preds % 10 == 0 and total_preds > 0:
+                    print("{} iterations done. Accuracy: {}".format(total_preds, correct_preds / total_preds))
+                    print("Cost: {}".format(error))
+                
                 self.backward()
+                total_preds += 1
         return iterations, accuracies, costs
     
     def test(self, test_X, test_y):
