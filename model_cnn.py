@@ -51,7 +51,7 @@ class Model(object):
                 total_preds += 1
         return iterations, accuracies, costs
     
-    def test(self, test_X, test_y):
+    def test(self, test_X, test_y, log_string):
         print("TESTING MODEL")
         total_accuracy = 0
         total_loss = 0
@@ -64,6 +64,13 @@ class Model(object):
         print("*******************")
         print("Accuracy of model: {}".format(total_accuracy / i))
         print("*******************")
+        #writing to logfile:
+        f = open("log.txt", "a")
+        f.write(log_string)
+        f.write("\n")
+        f.write("Accuracy of model: {}".format(total_accuracy / i))
+        f.write("\n")
+        f.close()
 
 
 
