@@ -45,6 +45,8 @@ class Model(object):
 
                 if total_preds % 10 == 0 and total_preds > 0:
                     print("{} iterations done. Accuracy: {}".format(total_preds, correct_preds / total_preds))
+                    print("Correct preds: {}".format(correct_preds))
+                    print("Total preds: {}".format(total_preds))
                     print("Cost: {}".format(error))
                 
                 self.backward()
