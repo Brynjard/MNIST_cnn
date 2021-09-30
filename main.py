@@ -27,11 +27,11 @@ train_y_one_hot_encoded = utils.one_hot_encode(train_y)
 test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 
 #init layers:
-learning_rate = 0.01
-num_filters = 3
+learning_rate = 0.005 
+num_filters = 5
 filter_size = 3
-train_img_num = 500
-test_img_num = 200
+train_img_num = 1000
+test_img_num = 500
 epochs = 3
 
 conv = ConvolutionalLayer(learning_rate)
@@ -44,9 +44,9 @@ predicts = Predictions()
 #Order layers for model:
 kwargs = OrderedDict()
 kwargs["conv"] = conv
-kwargs["relu_conv"] = relu_conv
+#kwargs["relu_conv"] = relu_conv
 kwargs["max_pool"] = max_pool
-kwargs["relu_pooling"] = relu_pooling
+#kwargs["relu_pooling"] = relu_pooling
 kwargs["softmax"] = softmax
 kwargs["prediction"] = predicts
 

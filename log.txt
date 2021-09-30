@@ -14,3 +14,23 @@ Accuracy of model: 0.335
 training on 500 images, for 3 epochs. Testing with: 200 images. 
 learning_rate:0.01 filter_size:3 number of filters: 3
 Accuracy of model: 0.57
+******** 
+training on 1000 images, for 3 epochs. Testing with: 500 images. 
+learning_rate:0.01 filter_size:3 number of filters: 3
+Accuracy of model: 0.084
+******** 
+training on 1000 images, for 3 epochs. Testing with: 500 images. 
+learning_rate:0.01 filter_size:3 number of filters: 3
+Accuracy of model: 0.084
+******** 
+training on 1000 images, for 3 epochs. Testing with: 500 images. 
+learning_rate:0.01 filter_size:3 number of filters: 1
+Accuracy of model: 0.472
+******** 
+training on 1000 images, for 3 epochs. Testing with: 500 images. 
+learning_rate:0.005 filter_size:3 number of filters: 3
+Accuracy of model: 0.61
+******** 
+training on 1000 images, for 3 epochs. Testing with: 500 images. 
+learning_rate:0.005 filter_size:3 number of filters: 5
+Accuracy of model: 0.75

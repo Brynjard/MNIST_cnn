@@ -14,7 +14,7 @@ class MaxPoolingLayer():
         self.input = input
         third_dim = self.input.shape[2]
         out_dim = helpers.calculate_output_size(self.input.shape[0], self.filter_size, 0, self.stride)
-        output = np.zeros((out_dim, out_dim, third_dim), dtype=float)
+        output = np.zeros((out_dim, out_dim, third_dim), dtype=np.float64)
         for f in range(third_dim):
             nums_r = self.input.shape[0]
             nums_c = self.input.shape[1]
@@ -33,7 +33,7 @@ class MaxPoolingLayer():
     
     def backward(self, d_L_d_out):
         #d_L_d_out is the loss gradient for this layers output
-        d_L_d_input = np.zeros((self.input.shape))
+        d_L_d_input = np.zeros((self.input.shape), dtype=np.float64)
         out_dim = d_L_d_out.shape[0]
         nums_r = self.input.shape[0]
         nums_c = self.input.shape[1]

@@ -31,7 +31,9 @@ def apply_same_padding(image, p):
 
 def init_filter(filter_size, num_filters):
     #init filter to be random numbers within normal distribution
-    return np.random.randn(num_filters, filter_size, filter_size) / (filter_size * filter_size)
+    filters = np.random.randn(num_filters, filter_size, filter_size) / (filter_size * filter_size)
+    filters = filters.astype(np.float64)
+    return filters
 
 """def init_weights(dim_0, dim1):
     #w = np.random.normal(size=(dim_0, dim1))
@@ -52,6 +54,7 @@ def convolve(image, filter, stride=1, same_padding=True):
     #pad image:
         img_padded = apply_same_padding(image, p)
         output_layers = np.zeros((image.shape[0], image.shape[1], filter.shape[0]))
+        output_layers.astype(np.float64)
         for f in range(filter.shape[0]): #for all filters:
             f_size = filter.shape[1]
             for r in range(output_layers.shape[0]):
@@ -69,7 +72,7 @@ def max_pooling(feature_matrix, filter_size=2, stride =2):
     nums_r = feature_matrix.shape[0]
     nums_c = feature_matrix.shape[1]
     out_dim = calculate_output_size(feature_matrix.shape[0], filter_size, 0, stride)
-    output = np.zeros((out_dim, out_dim), dtype=float)
+    output = np.zeros((out_dim, out_dim), dtype=np.float64)
     output_r = 0
     output_c = 0
     for r in range(0, nums_r, stride):

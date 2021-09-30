@@ -19,8 +19,8 @@ class ConvolutionalLayer():
 
     def backward(self, d_L_d_out):
         if len(self.input.shape) < 3:
-            d_L_d_filters = np.zeros(self.filter.shape)
-            d_L_d_input = np.zeros(self.input.shape)
+            d_L_d_filters = np.zeros(self.filter.shape, dtype=np.float64)
+            d_L_d_input = np.zeros(self.input.shape, dtype=np.float64)
 
             f_size = self.filter.shape[1]
             for f in range(self.filter.shape[0]):
@@ -33,8 +33,8 @@ class ConvolutionalLayer():
             self.d_L_d_filters = d_L_d_filters
             return self.d_L_d_filters
         else:
-            d_L_d_filters = np.zeros(self.filter.shape)
-            d_L_d_input = np.zeros(self.input.shape)
+            d_L_d_filters = np.zeros(self.filter.shape, dtype=np.float64)
+            d_L_d_input = np.zeros(self.input.shape, dtype=np.float64)
 
             f_size = self.filter.shape[1]
             for f in range(self.filter.shape[0]):
