@@ -30,15 +30,16 @@ test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 learning_rate = 0.005 
 num_filters = 5
 filter_size = 3
-train_img_num = 1000
-test_img_num = 500
+train_img_num = 2000
+test_img_num = 2000
 epochs = 3
+relu_leak_size = 0.01
 
 conv = ConvolutionalLayer(learning_rate)
 conv.init_filter(5, num_filters)
-relu_conv = Relu()
+relu_conv = Relu(relu_leak_size)
 max_pool = MaxPoolingLayer()
-relu_pooling = Relu()
+relu_pooling = Relu(relu_leak_size)
 softmax = SoftMax(196 * num_filters, 10, learning_rate) #earlier: SoftMax(relu_pooling.output.size, 10)
 predicts = Predictions()
 #Order layers for model:

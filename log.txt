@@ -35,3 +35,15 @@ training on 1000 images, for 3 epochs. Testing with: 500 images.
 Without relu
 learning_rate:0.005 filter_size:3 number of filters: 5
 Accuracy of model: 0.75
+******** 
+training on 1000 images, for 3 epochs. Testing with: 500 images. 
+learning_rate:0.005 filter_size:3 number of filters: 8
+Accuracy of model: 0.692
+******** 
+training on 2000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:3 number of filters: 3
+Accuracy of model: 0.7295
+******** 
+training on 2000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:3 number of filters: 5
+Accuracy of model: 0.768
