@@ -2,3 +2,15 @@
 training on 500 images, for 3 epochs. Testing with: 200 images. 
 learning_rate:0.01 filter_size:5 number of filters: 1
 Accuracy of model: 0.375
+******** 
+training on 500 images, for 3 epochs. Testing with: 200 images. 
+learning_rate:0.01 filter_size:5 number of filters: 3
+Accuracy of model: 0.445
+******** 
+training on 500 images, for 3 epochs. Testing with: 200 images. 
+learning_rate:0.01 filter_size:3 number of filters: 1
+Accuracy of model: 0.335
+******** 
+training on 500 images, for 3 epochs. Testing with: 200 images. 
+learning_rate:0.01 filter_size:3 number of filters: 3
+Accuracy of model: 0.57
