@@ -38,10 +38,6 @@ class Model(object):
         costs = []
         end_training = False
         #for early stopping: 
-        valid_start_i = 1
-        valid_end_i = 2
-        curr_valid_X = valid_X[valid_start_i * 100: valid_end_i * 100]
-        curr_valid_y = valid_y[valid_start_i * 100: valid_end_i * 100]
         prev_valid_accuracy = 0
 
         for epoch in range(num_epochs):
@@ -52,18 +48,16 @@ class Model(object):
 
             for im, label in zip(train_X, train_y):
 
-                if total_preds % valid_batch_size == 0 and total_preds > 0:
-                    current_v_accuracy = self.test_on_validate(curr_valid_X, curr_valid_y)
+                """if total_preds % valid_batch_size == 0 and total_preds > 0:
+                    current_v_accuracy = self.test_on_validate(valid_X, valid_y)
                     print("Validating with validation set. Current accuracy: {} previous: {}".format(current_v_accuracy, prev_valid_accuracy))
-                    if (current_v_accuracy <= prev_valid_accuracy or current_v_accuracy >= 0.9):
+                    if (current_v_accuracy <= prev_valid_accuracy):
                         print("Early stopping initiated. Current accuracy on validation set: {}".format(current_v_accuracy))
                         print("Ended after {} iterations.".format(total_preds))
                         end_training = True
                         break
                     else:
-                        prev_valid_accuracy = current_v_accuracy
-                        valid_start_i += 1
-                        valid_end_i += 1
+                        prev_valid_accuracy = current_v_accuracy"""
                 accuracy, error = self.forward(im, label)
                 correct_preds += accuracy
                 #performance metrics:

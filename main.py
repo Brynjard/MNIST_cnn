@@ -28,17 +28,17 @@ test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 
 #init layers:
 learning_rate = 0.005 
-num_filters = 5
+num_filters = 1
 filter_size = 5
-train_img_num = 3000
-test_img_num = 500
-epochs = 3
+train_img_num = 5000
+test_img_num = 1000
+epochs = 40
 relu_leak_size = 0.01
-i_between_valid = 900
+i_between_valid = 1000
 
 #resizing datasets for training/test/early stopping validation:
-valid_X = train_X[train_img_num: (train_img_num + int((train_img_num / i_between_valid) * 100))] #We hardcore that we will classify 100 samples each time we validate with valid_X in regards to early stopping.
-valid_y_one_hot_encoded = train_y_one_hot_encoded[train_img_num: (train_img_num + int((train_img_num / i_between_valid) * 100))]
+valid_X = train_X[train_img_num:train_img_num + 200] #We hardcore that we will classify 100 samples each time we validate with valid_X in regards to early stopping.
+valid_y_one_hot_encoded = train_y_one_hot_encoded[train_img_num: train_img_num + 200]
 train_X = train_X[:train_img_num]
 train_y_one_hot_encoded = train_y_one_hot_encoded[:train_img_num]
 
