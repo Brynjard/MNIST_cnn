@@ -47,3 +47,20 @@ Accuracy of model: 0.7295
 training on 2000 images, for 3 epochs. Testing with: 2000 images. 
 learning_rate:0.005 filter_size:3 number of filters: 5
 Accuracy of model: 0.768
+******** 
+training on 2000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5
+Accuracy of model: 0.8205
+******** 
+training on 2000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:7 number of filters: 5
+Accuracy of model: 0.7915
+******** 
+training on 2000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:5 number of filters: 7
+Accuracy of model: 0.711
+******** 
+Overfitting? Model has a higher accuracy on training data than on test set.
+training on 2000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.01 filter_size:5 number of filters: 5
+Accuracy of model: 0.7075
