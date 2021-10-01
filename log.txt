@@ -1,36 +1,4 @@
 ******** 
-training on 500 images, for 3 epochs. Testing with: 200 images. 
-learning_rate:0.01 filter_size:5 number of filters: 1
-Accuracy of model: 0.375
-******** 
-training on 500 images, for 3 epochs. Testing with: 200 images. 
-learning_rate:0.01 filter_size:5 number of filters: 3
-Accuracy of model: 0.445
-******** 
-training on 500 images, for 3 epochs. Testing with: 200 images. 
-learning_rate:0.01 filter_size:3 number of filters: 1
-Accuracy of model: 0.335
-******** 
-training on 500 images, for 3 epochs. Testing with: 200 images. 
-learning_rate:0.01 filter_size:3 number of filters: 3
-Accuracy of model: 0.57
-******** 
-training on 1000 images, for 3 epochs. Testing with: 500 images. 
-learning_rate:0.01 filter_size:3 number of filters: 3
-Accuracy of model: 0.084
-******** 
-training on 1000 images, for 3 epochs. Testing with: 500 images. 
-learning_rate:0.01 filter_size:3 number of filters: 3
-Accuracy of model: 0.084
-******** 
-training on 1000 images, for 3 epochs. Testing with: 500 images. 
-learning_rate:0.01 filter_size:3 number of filters: 1
-Accuracy of model: 0.472
-******** 
-training on 1000 images, for 3 epochs. Testing with: 500 images. 
-learning_rate:0.005 filter_size:3 number of filters: 3
-Accuracy of model: 0.61
-******** 
 training on 1000 images, for 3 epochs. Testing with: 500 images. 
 Without relu
 learning_rate:0.005 filter_size:3 number of filters: 5
@@ -76,3 +44,17 @@ Accuracy of model: 0.7695
 training on 6000 images, for 1 epochs. Testing with: 2000 images. 
 learning_rate:0.005 filter_size:5 number of filters: 5
 Accuracy of model: 0.8105
+******** 
+training on 1000 images, for 6 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5
+Accuracy of model: 0.7445
+
+******** 
+training on 100 images, for 1 epochs. Testing with: 50 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5 i between valdiation: 0.28
+Accuracy of model: 0
+
+******** 
+training on 100 images, for 1 epochs. Testing with: 50 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5 i between valdiation: 0
+Accuracy of model: 0.32

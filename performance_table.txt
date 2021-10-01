@@ -1,0 +1,11 @@
+accuracy, filter size, num of filters, number of training images, number of test images, epochs, learning rate, iterations between validating:
+
+0.21 5 5 500 200 1 0.005 0
+
+0.28 5 5 100 50 1 0.005 0
+0.28 5 5 100 50 1 0.005 0
+0.32 5 5 100 50 1 0.005 0
+0.34 5 5 100 50 1 0.005 0
+0.34 5 5 100 50 1 0.005 0
+0.28 5 5 100 50 1 0.005 0
+0.28 5 5 100 50 1 0.005 0

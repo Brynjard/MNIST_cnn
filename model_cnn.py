@@ -53,27 +53,32 @@ class Model(object):
                 self.backward()
                 total_preds += 1
         return iterations, accuracies, costs
+
+    def mini_test(self, test_X, test_y):
+        correct_preds = 0
+        total_preds = 0
+        for im, label in zip(test_X, test_y):
+            accuracy, _ = self.forward(im, label)
+            total_preds += 1
+            correct_preds += accuracy
+        return correct_preds / total_preds
     
-    def test(self, test_X, test_y, log_string):
+    def test(self, test_X, test_y):
         print("TESTING MODEL")
-        total_accuracy = 0
+        correct_preds = 0
         total_loss = 0
-        i = 0
+        total_preds = 0
         for im, label in zip(test_X, test_y):
             accuracy, error = self.forward(im, label)
-            total_accuracy += accuracy
+            correct_preds += accuracy
             total_loss += error
-            i += 1
+            total_preds += 1
+        final_accuracy = correct_preds / total_preds
         print("*******************")
-        print("Accuracy of model: {}".format(total_accuracy / i))
+        print("Accuracy of model: {}".format(final_accuracy))
         print("*******************")
-        #writing to logfile:
-        f = open("log.txt", "a")
-        f.write(log_string)
-        f.write("\n")
-        f.write("Accuracy of model: {}".format(total_accuracy / i))
-        f.write("\n")
-        f.close()
+        return final_accuracy
+        
 
 
 

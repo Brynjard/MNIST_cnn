@@ -30,9 +30,9 @@ test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 learning_rate = 0.005 
 num_filters = 5
 filter_size = 5
-train_img_num = 2000
-test_img_num = 2000
-epochs = 3
+train_img_num = 100
+test_img_num = 50
+epochs = 1
 relu_leak_size = 0.01
 
 conv = ConvolutionalLayer(learning_rate)
@@ -52,10 +52,12 @@ kwargs["softmax"] = softmax
 kwargs["prediction"] = predicts
 
 model_cnn = Model(kwargs)
-#current best: 6450 iterations
 iterations, accuracies, costs = model_cnn.fit(train_X[0:train_img_num], train_y_one_hot_encoded[0:train_img_num], epochs)
-log_string = "******** \ntraining on {} images, for {} epochs. Testing with: {} images. \nlearning_rate:{} filter_size:{} number of filters: {}".format(train_img_num, epochs, test_img_num, learning_rate, filter_size, num_filters)
-model_cnn.test(test_X[:test_img_num], test_y_one_hot_encoded[:test_img_num], log_string)
+
+accuracy = model_cnn.test(test_X[:test_img_num], test_y_one_hot_encoded[:test_img_num])
+#logging:
+utils.log(accuracy, filter_size, num_filters, train_img_num, test_img_num, epochs, learning_rate, 0)
+
 plt.plot(iterations, accuracies)
 plt.xlabel("time")
 plt.ylabel("accuracy")
