@@ -34,6 +34,15 @@ train_img_num = 100
 test_img_num = 50
 epochs = 1
 relu_leak_size = 0.01
+i_between_valid = 1000
+
+#resizing datasets for training/test/early stopping validation:
+train_X = train_X[:train_img_num]
+train_y_one_hot_encoded = train_y_one_hot_encoded[:train_img_num]
+valid_X = train_X[train_img_num: int((train_img_num / i_between_valid) * 100)] #We hardcore that we will classify 100 samples each time we validate with valid_X in regards to early stopping.
+valid_y_one_hot_encoded = train_y_one_hot_encoded[train_img_num: int((train_img_num / i_between_valid) * 100)]
+test_X = test_X[:test_img_num]
+test_y_one_hot_encoded = test_y_one_hot_encoded[:test_img_num]
 
 conv = ConvolutionalLayer(learning_rate)
 conv.init_filter(5, num_filters)
@@ -52,11 +61,11 @@ kwargs["softmax"] = softmax
 kwargs["prediction"] = predicts
 
 model_cnn = Model(kwargs)
-iterations, accuracies, costs = model_cnn.fit(train_X[0:train_img_num], train_y_one_hot_encoded[0:train_img_num], epochs)
+iterations, accuracies, costs = model_cnn.fit(train_X, train_y_one_hot_encoded, epochs)
 
-accuracy = model_cnn.test(test_X[:test_img_num], test_y_one_hot_encoded[:test_img_num])
+accuracy = model_cnn.test(test_X, test_y_one_hot_encoded)
 #logging:
-utils.log(accuracy, filter_size, num_filters, train_img_num, test_img_num, epochs, learning_rate, 0)
+utils.log(accuracy, filter_size, num_filters, train_img_num, test_img_num, epochs, learning_rate, i_between_valid)
 
 plt.plot(iterations, accuracies)
 plt.xlabel("time")

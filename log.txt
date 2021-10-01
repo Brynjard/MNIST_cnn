@@ -49,12 +49,3 @@ training on 1000 images, for 6 epochs. Testing with: 2000 images.
 learning_rate:0.005 filter_size:5 number of filters: 5
 Accuracy of model: 0.7445
 
-******** 
-training on 100 images, for 1 epochs. Testing with: 50 images. 
-learning_rate:0.005 filter_size:5 number of filters: 5 i between valdiation: 0.28
-Accuracy of model: 0
-
-******** 
-training on 100 images, for 1 epochs. Testing with: 50 images. 
-learning_rate:0.005 filter_size:5 number of filters: 5 i between valdiation: 0
-Accuracy of model: 0.32
