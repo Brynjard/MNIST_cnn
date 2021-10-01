@@ -36,6 +36,7 @@ class Model(object):
             for im, label in zip(train_X, train_y):
                 accuracy, error = self.forward(im, label)
                 correct_preds += accuracy
+                #performance metrics:
                 if total_preds > 0:
                     accuracies.append(correct_preds / total_preds)
                 else:

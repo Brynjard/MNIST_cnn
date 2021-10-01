@@ -64,3 +64,15 @@ Overfitting? Model has a higher accuracy on training data than on test set.
 training on 2000 images, for 3 epochs. Testing with: 2000 images. 
 learning_rate:0.01 filter_size:5 number of filters: 5
 Accuracy of model: 0.7075
+******** 
+training on 5000 images, for 3 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5
+Accuracy of model: 0.725
+******** 
+training on 15000 images, for 1 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5
+Accuracy of model: 0.7695
+******** 
+training on 6000 images, for 1 epochs. Testing with: 2000 images. 
+learning_rate:0.005 filter_size:5 number of filters: 5
+Accuracy of model: 0.8105

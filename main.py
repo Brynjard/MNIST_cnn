@@ -29,7 +29,7 @@ test_y_one_hot_encoded = utils.one_hot_encode(test_y)
 #init layers:
 learning_rate = 0.005 
 num_filters = 5
-filter_size = 3
+filter_size = 5
 train_img_num = 2000
 test_img_num = 2000
 epochs = 3
