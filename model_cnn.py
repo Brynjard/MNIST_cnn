@@ -20,13 +20,26 @@ class Model(object):
         for layer_key in reversed(self.layer_keys[:-1]):
             gradient = self.layers[layer_key].backward(gradient)
 
-    def fit(self, train_X, train_y, num_epochs=1):
+    def test_on_validate(self, test_X, test_y):
+        correct_preds = 0
+        total_preds = 0
+        for im, label in zip(test_X, test_y):
+            accuracy, _ = self.forward(im, label)
+            total_preds += 1
+            correct_preds += accuracy
+        return correct_preds / total_preds
+
+    def fit(self, train_X, train_y, valid_X, valid_y, valid_batch_size, num_epochs=1):
         print("TRAINING MODEL")
         total_preds = 0
         correct_preds = 0
         iterations = []
         accuracies = []
         costs = []
+        end_training = False
+        #for early stopping: 
+        prev_valid_accuracy = 0
+
         for epoch in range(num_epochs):
             #Shuffle training data: 
             permutation = np.random.permutation(len(train_X))
@@ -34,8 +47,20 @@ class Model(object):
             train_y = train_y[permutation]
 
             for im, label in zip(train_X, train_y):
+
+                """if total_preds % valid_batch_size == 0 and total_preds > 0:
+                    current_v_accuracy = self.test_on_validate(valid_X, valid_y)
+                    print("Validating with validation set. Current accuracy: {} previous: {}".format(current_v_accuracy, prev_valid_accuracy))
+                    if (current_v_accuracy <= prev_valid_accuracy):
+                        print("Early stopping initiated. Current accuracy on validation set: {}".format(current_v_accuracy))
+                        print("Ended after {} iterations.".format(total_preds))
+                        end_training = True
+                        break
+                    else:
+                        prev_valid_accuracy = current_v_accuracy"""
                 accuracy, error = self.forward(im, label)
                 correct_preds += accuracy
+                #performance metrics:
                 if total_preds > 0:
                     accuracies.append(correct_preds / total_preds)
                 else:
@@ -45,25 +70,34 @@ class Model(object):
 
                 if total_preds % 10 == 0 and total_preds > 0:
                     print("{} iterations done. Accuracy: {}".format(total_preds, correct_preds / total_preds))
+                    print("Correct preds: {}".format(correct_preds))
+                    print("Total preds: {}".format(total_preds))
                     print("Cost: {}".format(error))
                 
                 self.backward()
                 total_preds += 1
+            if end_training:
+                break
         return iterations, accuracies, costs
+
+    
     
     def test(self, test_X, test_y):
         print("TESTING MODEL")
-        total_accuracy = 0
+        correct_preds = 0
         total_loss = 0
-        i = 0
+        total_preds = 0
         for im, label in zip(test_X, test_y):
             accuracy, error = self.forward(im, label)
-            total_accuracy += accuracy
+            correct_preds += accuracy
             total_loss += error
-            i += 1
+            total_preds += 1
+        final_accuracy = correct_preds / total_preds
         print("*******************")
-        print("Accuracy of model: {}".format(total_accuracy / i))
+        print("Accuracy of model: {}".format(final_accuracy))
         print("*******************")
+        return final_accuracy
+        
 
 
 
