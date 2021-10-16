@@ -29,7 +29,7 @@ class Model(object):
             correct_preds += accuracy
         return correct_preds / total_preds
 
-    def fit(self, train_X, train_y, valid_X, valid_y, valid_batch_size, num_epochs=1):
+    def fit(self, train_X, train_y, num_epochs=1):
         print("TRAINING MODEL")
         total_preds = 0
         correct_preds = 0
@@ -37,8 +37,6 @@ class Model(object):
         accuracies = []
         costs = []
         end_training = False
-        #for early stopping: 
-        prev_valid_accuracy = 0
 
         for epoch in range(num_epochs):
             #Shuffle training data: 
@@ -47,17 +45,6 @@ class Model(object):
             train_y = train_y[permutation]
 
             for im, label in zip(train_X, train_y):
-
-                """if total_preds % valid_batch_size == 0 and total_preds > 0:
-                    current_v_accuracy = self.test_on_validate(valid_X, valid_y)
-                    print("Validating with validation set. Current accuracy: {} previous: {}".format(current_v_accuracy, prev_valid_accuracy))
-                    if (current_v_accuracy <= prev_valid_accuracy):
-                        print("Early stopping initiated. Current accuracy on validation set: {}".format(current_v_accuracy))
-                        print("Ended after {} iterations.".format(total_preds))
-                        end_training = True
-                        break
-                    else:
-                        prev_valid_accuracy = current_v_accuracy"""
                 accuracy, error = self.forward(im, label)
                 correct_preds += accuracy
                 #performance metrics:

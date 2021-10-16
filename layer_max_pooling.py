@@ -53,14 +53,7 @@ class MaxPoolingLayer():
                         output_c += 1
                 output_r += 1 
         self.d_L_d_input = d_L_d_input
-            #self.print_desc()
         return self.d_L_d_input
-    
-    def print_desc(self):
-        print("***** MAXPOOLING LAYER START *****")
-        print("Output: {}".format(self.input))
-        print("d_L_d_input: {}".format(self.d_L_d_input))
-        print("***** MAXPOOLING LAYER END *****")
 
         
 

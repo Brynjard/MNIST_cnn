@@ -114,3 +114,18 @@ Accuracy of model: 0.085
 training on 100 images, for 1 epochs. Testing with: 50 images. 
 learning_rate:0.005 filter_size:5 number of filters: 1 i between valdiation: 1000
 Accuracy of model: 0.36
+
+******** 
+training on 100 images, for 1 epochs. Testing with: 50 images. 
+learning_rate:0.005 filter_size:5 number of filters: 1 i between valdiation: 1000
+Accuracy of model: 0.3
+
+******** 
+training on 100 images, for 1 epochs. Testing with: 50 images. 
+learning_rate:0.005 filter_size:5 number of filters: 1 i between valdiation: 1000
+Accuracy of model: 0.26
+
+******** 
+training on 100 images, for 1 epochs. Testing with: 50 images. 
+learning_rate:0.005 filter_size:5 number of filters: 1 i between valdiation: 1000
+Accuracy of model: 0.14

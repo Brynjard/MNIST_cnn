@@ -13,6 +13,5 @@ def cross_entropy(predictions, targets, epsilon=1e-12):
     return ce
 
 def cross_entropy_derivative(predictions, labels):
-       #preds - truth?
        return predictions - labels
 

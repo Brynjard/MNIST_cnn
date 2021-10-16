@@ -1,10 +1,9 @@
 import numpy as np
-from numpy.core.numeric import NaN
 import cnn_helpers as helpers
 class Predictions():
     def __init__(self): #out_s : target for a single image.
         self.error = None
-        self.d_L_d_out = None #formerly: d_L_d_out_s
+        self.d_L_d_out = None 
 
     def forward(self, pred, out_s):
         self.pred = pred.astype(np.float64)
@@ -26,17 +25,8 @@ class Predictions():
         gradient = (np.zeros(10)).astype(np.float64)
         gradient[self.label] = -1 / self.pred[self.label]
         self.d_L_d_out = gradient
-        #self.print_desc()
         return self.d_L_d_out
-    
-    def print_desc(self):
-        print("***** PREDICTION LAYER START ******")
-        print("Output of model: {}".format(self.pred))
-        print("target output: {}".format(self.out_s))
-        print("Argmax of output: {}".format(np.argmax(self.pred)))
-        print("Error: {}".format(self.error))
-        #print("d_L/d_out_s: {}".format(self.d_L_d_out_s))
-        #print("***** PREDICTION LAYER END ******")
+
     
     
 
