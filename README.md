@@ -1,5 +1,17 @@
 ## A Convolutional Neural Network created from scratch using Numpy for experiments on the MNIST dataset.
 ---
+### Usage: 
+- Create conda environment for all package dependencies with conda: 
+```
+conda env create --name env_name --file=environment.yml
+```
+- Modify hyper-parameters (learning rate, filter-size, number of filters, epochs etc..) from main.py
+- The program logs results to "log.txt" when finished with training/testing. 
+- Start training/testing the model: 
+```
+python3 main.py
+```
+---
 ### About: 
 This project was a part of the research for my masters thesis, and was originally a competition between me and my thesis-partner to see who could make the best CNN model for MNIST using only Numpy. 
 The winner was awarded a 6-pack of beer and eternal glory. 
@@ -18,13 +30,6 @@ This model was tested with several different specifications and architectures, i
 - 1 Softmax layer
 - One prediction layer with cross-entropy loss.
 
----
-### Usage: 
-- Create conda environment for all package dependencies with conda: 
-```
-conda env create --name env_name --file=environment.yml
-```
-- Modify hyper-parameters (learning rate, filter-size, number of filters, epochs etc..) from main.py
-- The program logs results to "log.txt" when finished with training/testing. 
+
 
 
